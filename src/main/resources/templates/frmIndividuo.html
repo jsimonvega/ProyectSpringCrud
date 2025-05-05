@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+    <head th:replace="Plantilla/plantilla :: head"></head>
+    <body>
+        <div class="container">    
+            <header th:replace="Plantilla/plantilla :: header"></header>
+            <h2 th:text="${individuo.id != null} ? #{individuo.frm.tituloEditar} + ' (' + ${individuo.nombre} + ')' : #{individuo.frm.tituloAgregar}"></h2>
+            <a th:href="@{/}">
+                <span th:text="${individuo.id != null} ? #{individuo.frm.btnRegresarLista} : #{individuo.frm.btnCancelarRegistro}"></span>
+            </a>
+            <form th:action="@{/grabar}" method="post" th:object="${individuo}">
+                <div class="card">
+                    <div class="card-body">                    
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="hidden" th:if="${individuo.id != null}" name="id" th:field="*{id}" />
+                                <label for="nombre" class="form-label" th:text="#{individuo.nombre}"></label>
+                                <div class="position-relative">
+                                    <input type="text" name="nombre" th:field="*{nombre}" class="form-control form-control-lg" id="nombre" />
+                                    <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error">Error en Nombre</span>
+                                </div>
+                                
+                            </div>
+                            <div class="col-md-6">
+                                <label for="apellido" class="form-label" th:text="#{individuo.apellido}"></label>
+                                <div class="position-relative">
+                                    <input type="text" name="apellido" th:field="*{apellido}" class="form-control form-control-lg" id="apellido" />
+                                    <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}" class="error">Error en Apellido</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="telefono" class="form-label" th:text="#{individuo.telefono}"></label>
+                                <div class="position-relative">
+                                    <input type="text" name="telefono" th:field="*{telefono}" class="form-control form-control-lg" id="telefono" />
+                                    <span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}" class="error">Error en Teléfono</span>
+                                </div>                                    
+                            </div>
+                            <div class="col-md-6">
+                                <label for="correo" class="form-label" th:text="#{individuo.correo}"></label>
+                                <div class="position-relative">
+                                    <input type="text" name="correo" th:field="*{correo}" class="form-control form-control-lg" id="correo" />
+                                    <span th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}" class="error">Error en Correo</span>
+                                </div>                                    
+                            </div>
+                            <div class="col-md-6">
+                                <label for="edad" class="form-label" th:text="#{individuo.edad}"></label>
+                                <div class="position-relative">
+                                    <input type="tel" name="edad" th:field="*{edad}" class="form-control form-control-lg" id="edad" />
+                                    <span th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}" class="error">Error en Edad</span>
+                                </div>                                    
+                            </div>
+                        </div>                    
+                    </div>
+                    <div class="card-footer ">
+                        <div class="float-end">
+                            <input type="submit" class="btn btn-success" name="grabar" th:value="${individuo.id != null} ? #{individuo.frm.btnActualizar} : #{individuo.frm.btnGuardar}" />                            
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <footer th:replace="Plantilla/plantilla :: footer"></footer>
+        </div>
+        
+        
+    </body>
+</html>
